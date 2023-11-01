@@ -103,27 +103,6 @@ or people can simply look up the solution with the game id.
 `ALL.TXT` contains a list of all accepted words (over 10k words).
 The `SOLUTION.TXT` contains the list of all possible words that can be a solution (approx 2k words).
 
-## Speed vs Memory
-
-This version is written to run on pretty much anything that has a terminal.
-
-- It requires almost no memory at all
-- It has at most 3 file pointers open
-- It doesn't uses OS dependent functions in the terminal, just basic text I/O
-
-The application can save a lot of memory by not loading the entire lists into memory.
-Instead, the lists are searched during gameplay as needed.
-
-The downside of this approach is that searching for words is rather slow as it has to run through the entire file.
-On an 4 MHz 8088 it can take up to 10 seconds to scan the list.
-The list is alphabetical, so "CRANE" will be found faster than "ZORRO".
-
-Various functions have been written to fix these issues.
-
-Note: I do not know if the game would actually run on an 8088.
-The speed figures were obtained by running DOSBox at that speed, but DOSBox emulates a better CPU.
-The precompiled executable runs in an 8086 according to DOSBox though.
-
 ## Speed optimizations
 
 Speed optimizations are important for games that are intended to run on old or undersized machines.
@@ -132,7 +111,6 @@ The two most important things are described below.
 
 ### Basic checks
 
-This is fairly trivial.
 First of all, we do not need to scan the word list if the guess is correct.
 At this point we can immediately terminate the application with a success message.
 
@@ -171,30 +149,5 @@ The result of this is:
 - The solution list only needs to be scanned when a game is started to pick the word but not to count words.
 - The full word list is only ever scanned for words with the same letter as the current guess.
 
-## Running on old machines
 
-Various floppy disk images are provided with the game and word lists on them.
 
-Sizes: 360k, 720k, 1.4M
-
-## Compiling
-
-The application should compile pretty much on anything.
-
-Currently tested are:
-
-- Windows 3.11
-- Windows 10
-- MS-DOS 6.22
-
-Note that all these systems use CRLF as line break.
-If you compile for linux,
-you may need to adjust the line breaks in the word lists for the files to work properly.
-The C file already has an EOL constant that adapts automatically in most cases.
-
-If you plan on providing this over text based network connection (for example a BBS system),
-be advised that telnet like most text based protocols (HTTP, FTP, SMTP, etc) also uses CRLF,
-even on Linux.
-
-- LF withour CR: Cursor moves down a line but not back to the start. Lines look like "stairs"
-- CR without LF: Cursor moves to the start but not down. Lines overwrite each other
