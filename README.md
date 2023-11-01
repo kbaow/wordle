@@ -7,8 +7,8 @@ It compiles in Borland Turbo C++ and runs under DOS.
 
 # How to run the program
 
-**make**
-**./wordle**
+    make
+    ./wordle
 
 - Make will create and executable named wordle
 - Entering "new" will generate a new game which the algorithm will solve within 12 guesses
